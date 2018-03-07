@@ -1,0 +1,38 @@
+{% extends 'mycms/base.html' %}
+{% block content %}
+
+<article class="index_article">
+  <div class="container">
+    <form method="post" name="new_article_form">
+      {% csrf_token %}
+      <div class="form-group">
+        <!-- <div class="row">
+          <div class="col-lg-8 article_form"><span class="common_label">タイトル</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 article_form">
+            <input type="text" class="form-control" placeholder="Subject" name="form_article_subject" value="{{ article_subject }}">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 article_form">
+            <div>
+            </div>
+            <textarea class="form-control" rows="50" name="form_article_body" id="form_article_body">{{ article_body }}</textarea>
+          </div>
+        </div> -->
+
+        {{ form }}
+
+        <div class="row">
+          <div class="col-lg-12 auth_screen_row_btn">
+            <input class="btn btn-success" type="submit" value="新規作成" />
+          </div>
+        </div>          
+    </form>
+    </div>
+  </div>
+</article>
+
+{% endblock %}

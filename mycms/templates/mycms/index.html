@@ -1,0 +1,36 @@
+{% extends 'mycms/base.html' %}
+{% block content %}
+
+<section class="jumbotron text-center">
+    <div class="container">
+      {% with title=view.global_site_setting.title desc=view.global_site_setting.description %}
+      <h1 class="jumbotron-heading">{{ title | striptags }}</h1>
+        {% if desc != "" %}
+      <p class="lead">{{ desc | striptags }}</p>
+        {% endif %}
+      {% endwith %}
+    </div>        
+  </section>
+
+  {% if view.recent_articles == None %}
+  <article>
+    記事がありません。
+  </article>
+  {% endif %}
+
+  {% for article in view.recent_articles %}
+  <article class="index_article">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+            <h3><a href="{% url 'article' article.id %}">{{ article.subject }}</a></h3>
+            {{ article.body|safe }}
+            <span class="post-date">投稿日時: {{ article.post_date|date }}</span>
+            <span class="post-author">{{ article.post_author.screen_name }}</span>
+        </div>
+      </div>
+    </div>
+  </article>
+  {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+
+.auth_box {
+  margin-top: 2em;
+  padding: 30px 45px 30px 45px;
+  border: solid 1px #888;
+  border-radius: 0.3em;
+}
+
+.auth_screen_title {
+  margin-top: 3em;
+}
+.auth_screen_label {
+  font-size: 11px;
+  color: #888;
+}
+
+.auth_screen_row {
+  margin-top: 1em;
+}
+
+.auth_screen_row_btn {
+  margin-top: 2em;
+}
+
+#id_username {
+  width: 300px;
+}
+
+#id_password {
+  width: 300px;
+}

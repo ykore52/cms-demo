@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg bg-faded">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-text">
+      <span class="navbar-text">
+          <a href="{% url 'index' %}">Top</a>
+      </span>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav ml-auto">
+    {% if user.is_authenticated %}
+    <li class="nav-text">
+      <a class="nav-link" href="{% url 'new_article' %}">記事を書く</a>
+    </li>
+    <li class="nav-item btn-group">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu" aria-haspopup="true" aria-expanded="false">
+        {% if user.screen_name == "" %}
+        {{ user.username }}
+        {% else %}
+        {{ user.screen_name }}
+        {% endif %}
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+        <a class="dropdown-item" href="{% url 'mypage' %}">マイページ</a>
+        {% if user.is_superuser %}
+        <a class="dropdown-item" href="{% url 'admin:index' %}">管理</a>
+        {% endif %}        
+        <a class="dropdown-item" href="{% url 'logout' %}">ログアウト</a>
+      </div>
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a href="{% url 'login' %}" >ログイン</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>

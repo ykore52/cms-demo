@@ -1,0 +1,24 @@
+{% extends 'mycms/base.html' %}
+{% block content %}
+
+  {% if article == None %}
+  <article>
+    記事がありません。
+  </article>
+
+  {% else %}
+
+  <article class="index_article">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+            <h3>{{ article.subject }}</h3>
+            <div>{{ article.body|safe }}</div>
+            <span class="post-date">投稿日時: {{ article.post_date|date }}</span>
+            <span class="post-author">{{ article.post_author.screen_name }}</span>
+        </div>
+      </div>
+    </div>
+  </article>
+  {% endif %}
+{% endblock %}

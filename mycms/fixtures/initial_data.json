@@ -1,0 +1,18 @@
+[
+  {
+    "model": "mycms.GlobalSiteSetting",
+    "fields": {
+      "title": "Default CMS Site Name",
+      "description": ""
+    }
+  },
+  {
+    "model": "mycms.Article",
+    "fields": {
+      "subject": "My First Blog Post",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sapien libero, vestibulum vitae pellentesque id, porta eget nibh. Phasellus eleifend blandit arcu quis luctus. Pellentesque lacinia interdum hendrerit.",
+      "post_author_id": "1",
+      "post_date": "1970-01-01"
+    }
+  }
+]

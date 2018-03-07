@@ -1,0 +1,23 @@
+.mypage_label {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.table_col_header {
+  text-align: center;
+}
+
+.table_col_fix150 {
+  text-align: center;
+  width: 150px;
+}
+
+.table_col_fix100 {
+  text-align: center;
+  width: 100px;
+}
+
+.table_col_fix80 {
+  text-align: center;
+  width: 80px;
+}

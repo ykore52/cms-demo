@@ -1,0 +1,46 @@
+{% extends 'mycms/base_auth.html' %}
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="text-center auth_screen_title"><h3>ユーザー ログイン</h3></div>
+        
+        <div class="auth_box mx-auto">
+        <form method="post" action="{% url 'login' %}">
+          <div class="row">
+            <div class="col-lg-12">
+            {% csrf_token %}
+            {{ form.non_field_errors}}
+          </div>
+        </div>
+          <div class="row">
+              <div class="col-lg-12">
+                <div>
+                    <span class="auth_screen_label">E-mailアドレス</span>
+                </div>
+                {{ form.username }}
+                {{ form.errors.username }}
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-lg-12 auth_screen_row">
+                  <div>
+                      <span class="auth_screen_label">パスワード</span>
+                  </div>
+                  {{ form.password }}
+                {{ form.errors.password }}
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-lg-12 auth_screen_row_btn">
+                  <input class="btn btn-success" type="submit" value="ログイン" />
+                </div>
+              </div>          
+        </form>  
+      </div>
+    </div>      
+  </div>
+</div>
+
+{% endblock %}

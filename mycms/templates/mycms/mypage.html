@@ -1,0 +1,62 @@
+{% extends 'mycms/base.html' %}
+{% block content %}
+
+<div class="container mx-auto">
+  <div class="center">
+    <div class="mypage_label">
+      <h3>ユーザー情報</h3>
+    </div>
+
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>メールアドレス</th>
+          <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+          <th>表示名</th>
+          <td>{{ user.screen_name }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mypage_label">
+        <h3>投稿中の記事</h3>
+    </div>
+
+{% if all_articles == None %}
+    <article>
+      記事がありません。
+    </article>
+{% else %}
+  
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="table_col_fix150">投稿日</th>
+          <th class="text-center">記事タイトル</th>
+          <th class="table_col_fix150">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+{% for article in all_articles %}
+  {% if article.post_author_id == user.id %}
+        <tr>
+          <td class="text-center">{{ article.post_date }}</td>
+          <td><a href="% url 'article_details' article.id %">{{ article.subject }}</a></td>
+          <td>
+              <a class="btn btn-primary btn-sm" role="button" href="{% url 'edit_article' article.id %}">編集</button>
+              
+              <a class="btn btn-secondary btn-sm" role="button" href="{% url 'delete_article' article.id %}">削除</button>
+          </td>
+        </tr>
+  {% endif %}
+{% endfor %}
+      </tbody>
+    </table>
+
+{% endif %}
+  </div>
+</div>
+
+{% endblock %}
