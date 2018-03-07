@@ -82,8 +82,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '/etc/mysql/client.cnf',
-            'isolation_level': 'serializable'
+            #'read_default_file': '/etc/mysql/client.cnf',
+            'host': os.environ['MYSQL_HOST'],
+            'user': os.environ['MYSQL_USER'],
+            'password': os.environ['MYSQL_PASSWORD'],
+            'database': os.environ['MYSQL_DATABASE'],
+            'isolation_level': 'serializable',
+            'init_command': 'SET ' 'character_set_connection=utf8,' 'collation_connection=utf8_bin'
         }
     }
 
