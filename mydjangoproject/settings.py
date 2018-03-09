@@ -137,8 +137,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = '/mycms/login'
-LOGIN_REDIRECT_URL = '/mycms/'
-LOGOUT_REDIRECT_URL = '/mycms/'
+LOGIN_URL = '/cms-demo/mycms/login'
+LOGIN_REDIRECT_URL = '/cms-demo/mycms/'
+LOGOUT_REDIRECT_URL = '/cms-demo/mycms/'
 
 AUTH_USER_MODEL = 'mycms.CMSUser'
