@@ -22,47 +22,81 @@ from .forms import CreateArticleForm, UpdateArticleForm
 import re
 from django.utils.html import strip_tags
 
+from markdown2 import Markdown
 
 def logout(request):
   template = loader.get_template('mycms/logout.html')
   return HttpResponse(template.render(request=request))
 
-def _convert_style(body):
-  strbody = str()
-  for line in body.splitlines():
-    strbody += "<p>" + strip_tags(line) + "</p>"
-  return strbody
+def convert_style(body):
+  md = Markdown()
+  return md.convert(strip_tags(body))
 
 
 class IndexView(TemplateView):
   template_name = 'mycms/index.html'
   global_site_title = ""
   global_site_description = ""
-  recent = []
-
 
   def global_site_setting(self):
     return GlobalSiteSetting.objects.get()
 
+  def get_context_data(self, **kwargs):
+    begin = 0
+    context = super().get_context_data(**kwargs)
+    context['past_num'] = begin
+    return context
+
+  def get_past_articles(self, begin):
+    end = begin + 5
+    return Article.objects \
+        .select_related() \
+        .order_by('post_date') \
+        .reverse()[begin:end]
 
   def recent_articles(self):
-
     recent = Article.objects \
       .select_related() \
-      .extra({'body': 'CONCAT(LEFT(body, 100), "...")'}) \
       .order_by('post_date') \
       .reverse()[0:5]
 
     for article in recent:
-      converted_body = str()
-      converted_body = _convert_style(str(article.body))
-      article.body = converted_body
+      article.body = convert_style(str(article.body))
     return recent
+
+
+class PastArticleView(TemplateView):
+  template_name = 'mycms/past_article.html'
+
+  def get(self, request, *args, **kwargs):
+    begin = kwargs['begin']
+
+    if not re.match(r'^\d+$', begin):
+      return HttpResponseRedirect(reverse('index'))
+
+    begin = int(begin)
+    if begin <= 0 or begin > 100000:
+      return HttpResponseRedirect(reverse('index'), [])
+
+    return super().get(request, *args, **kwargs)
+
+  def get_context_data(self, **kwargs):
+    begin = int(kwargs['begin'])
+    context = super().get_context_data(**kwargs)
+    context['past_articles'] = self.get_past_articles(begin * 5)
+    context['past_num'] = begin
+    return context
+
+  def get_past_articles(self, begin):
+    end = begin + 5
+    return Article.objects \
+        .select_related() \
+        .order_by('post_date') \
+        .reverse()[begin:end]
 
 
 class MyPageView(TemplateView):
   template_name = 'mycms/mypage.html'
-
 
   def get_context_data(self, **kwargs):
     '''
@@ -83,7 +117,7 @@ class ArticleView(DetailView):
     context = super().get_context_data(**kwargs)
 
     article = Article.objects.get(id=self.kwargs['pk'])
-    article.body = _convert_style(str(article.body))
+    article.body = convert_style(str(article.body))
     context['article'] = article
 
     return context

@@ -1,34 +1,22 @@
 {% extends 'mycms/base.html' %}
 {% block content %}
 
-<section class="jumbotron text-center">
-    <div class="container">
-      {% with title=view.global_site_setting.title desc=view.global_site_setting.description %}
-      <h1 class="jumbotron-heading">{{ title | striptags }}</h1>
-        {% if desc != "" %}
-      <p class="lead">{{ desc | striptags }}</p>
-        {% endif %}
-      {% endwith %}
-    </div>
-  </section>
-
-  {% if not view.recent_articles %}
+  {% if not past_articles %}
   <article>
     記事がありません。
   </article>
   {% else %}
-
+  
   <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <p class="text-right"><a href="{% url 'past_article' past_num|add:"1" %}">&lt;&lt;</a>
-          {% if past_num > 0 %} | <a href="{% url 'past_article' past_num|add:"-1" %}">&gt;&gt;</a> {% endif %}</p>
+      <div class="row">
+        <div class="col-lg-12">
+          <p class="text-right"><a href="{% url 'past_article' past_num|add:"1" %}">&lt;&lt;</a>
+            {% if past_num > 0 %} | <a href="{% url 'past_article' past_num|add:"-1" %}">&gt;&gt;</a> {% endif %}</p>
+        </div>
       </div>
     </div>
-  </div>
-
   
-  {% for article in view.recent_articles %}
+  {% for article in past_articles %}
   <article class="index_article">
     <div class="container">
       <div class="row">

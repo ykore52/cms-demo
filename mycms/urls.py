@@ -7,6 +7,7 @@ from . import views
 
 from .views import IndexView
 from .views import ArticleView, CreateArticleView, UpdateArticleView, DeleteArticleView
+from .views import PastArticleView
 from .views import MyPageView
 
 
@@ -15,6 +16,8 @@ urlpatterns = [
   re_path(r'^new_article$', CreateArticleView.as_view(), name='new_article'),
   path('edit_article/<pk>/', login_required(UpdateArticleView.as_view()), name='edit_article'),
   path('delete_article/<pk>/', login_required(DeleteArticleView.as_view()), name='delete_article'),
+
+  path('past_article/<begin>/', PastArticleView.as_view(), name='past_article'),
 
   re_path(r'^$', IndexView.as_view(), name='index'),
   re_path(r'^mypage$', login_required(MyPageView.as_view()) , name='mypage'),

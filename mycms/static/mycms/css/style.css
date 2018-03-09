@@ -71,6 +71,10 @@ popover {
   height:50vh;
 }
 
+.post-title {
+  margin: 2rem 0 1.8rem;
+}
+
 .post-date {
   font-size: 12px;
   color: #777;
